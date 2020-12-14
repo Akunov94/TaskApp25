@@ -14,7 +14,11 @@
             android:id="@+id/action_navigation_home_to_formFragment"
             app:destination="@id/formFragment" />
     </fragment>
-
+    <fragment
+        android:id="@+id/profileFragment"
+        android:label="@string/title_profile"
+        android:name="com.geektech.taskapp25.ui.profile.ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.geektech.taskapp25.ui.dashboard.DashboardFragment"

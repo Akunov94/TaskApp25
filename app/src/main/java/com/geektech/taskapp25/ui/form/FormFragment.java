@@ -1,10 +1,12 @@
 package com.geektech.taskapp25.ui.form;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,10 +18,13 @@ import android.widget.EditText;
 import com.geektech.taskapp25.MainActivity;
 import com.geektech.taskapp25.R;
 
+import java.net.URISyntaxException;
+
 
 public class FormFragment extends Fragment {
 
     private EditText editText;
+    public static String KEY = "key";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,13 +36,35 @@ public class FormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         editText = view.findViewById(R.id.editText);
+        setFragmentListener();
+//        Bundle bundle = this.getArguments();
+//        if (bundle != null){
+//            String text = bundle.getString("text");
+//            if (text !=null){
+//                editText.setText(text);
+//            }
+//        }
         view.findViewById(R.id.btnSave).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 save();
             }
         });
+
     }
+
+    private void setFragmentListener() {
+        getParentFragmentManager().setFragmentResultListener("list_pos",
+                getViewLifecycleOwner(),
+                new FragmentResultListener() {
+                    @Override
+                    public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                        String text = result.getString("text_pos");
+                        editText.setText(text);
+                    }
+                });
+    }
+
 
     private void save() {
         String text = editText.getText().toString();

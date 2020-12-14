@@ -4,10 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.board.BoardFragment">
-
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager"
+        android:id="@+id/viewPager2"
+        android:background="@color/teal_200"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/txtSkip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:textSize="18sp"
+        android:padding="16dp"
+        android:text="SKIP"
+        tools:ignore="MissingConstraints" />
+<!--   <LinearLayout-->
+<!--    android:id="@+id/viewPagerCountDots"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="16dp"-->
+<!--    android:layout_above="@+id/ll_footer"-->
+<!--    android:layout_marginBottom="12dp"-->
+<!--    android:layout_alignParentLeft="true"-->
+<!--    android:gravity="center"-->
+<!--    android:orientation="horizontal" />-->
+<!--    <LinearLayout-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:id="@+id/ll_footer"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_get_started"-->
+<!--            style="?android:attr/borderlessButtonStyle"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:background="@color/teal_200"-->
+<!--            android:text="GET STARTED"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="18sp"-->
+<!--            android:visibility="gone"-->
+<!--            />-->
+
+
+<!--    </LinearLayout>-->
+
+
 
 </RelativeLayout>

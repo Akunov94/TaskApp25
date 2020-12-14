@@ -3,6 +3,7 @@ package com.geektech.taskapp25.ui.board;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
 
     private ArrayList<String> titles = new ArrayList<>();
     private ArrayList<String> desc = new ArrayList<>();
+    private ArrayList<Integer> img = new ArrayList<>();
 
     public BoardAdapter() {
         titles.add("Fast");
@@ -25,6 +27,7 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
         desc.add("Fast Fast Fast Fast Fast Fast Fast Fast Fast Fast Fast Fast Fast Fast");
         desc.add("Free");
         desc.add("Powerful");
+
     }
 
     @NonNull
@@ -49,16 +52,24 @@ public class BoardAdapter extends RecyclerView.Adapter<BoardAdapter.ViewHolder> 
 
         private TextView textTitle;
         private TextView textDesc;
+        private ImageView imageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             textTitle = itemView.findViewById(R.id.textTitle);
             textDesc = itemView.findViewById(R.id.textDesc);
+            imageView = itemView.findViewById(R.id.imgViewPager);
         }
 
         public void bind(int position) {
             textTitle.setText(titles.get(position));
             textDesc.setText(desc.get(position));
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
     }
 }

@@ -3,6 +3,7 @@ package com.geektech.taskapp25;
 import android.os.Bundle;
 import android.view.View;
 
+import com.geektech.taskapp25.utils.Prefs;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initNavController();
-//        navController.navigate(R.id.boardFragment);
+        boolean isShown = new Prefs(this).isShown();
+        if (!isShown) navController.navigate(R.id.boardFragment);
     }
 
     private void initNavController() {
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
                 if (destination.getId() == R.id.navigation_home ||
                         destination.getId() == R.id.navigation_dashboard ||
+                        destination.getId() == R.id.profileFragment ||
                         destination.getId() == R.id.navigation_notifications) {
                     navView.setVisibility(View.VISIBLE);
                 } else {
