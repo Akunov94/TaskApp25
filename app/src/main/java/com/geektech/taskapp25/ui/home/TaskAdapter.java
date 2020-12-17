@@ -17,6 +17,7 @@ import com.geektech.taskapp25.Note;
 import com.geektech.taskapp25.R;
 import com.geektech.taskapp25.interfaces.OnItemClickListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,6 +70,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         notifyItemChanged(pos);
     }
 
+    public Note getItem(int position) {
+        return list.get(position);
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -83,13 +88,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onItemClickListener.onClick(getAdapterPosition(),list.get(getAdapterPosition()));
+                    onItemClickListener.onClick(getAdapterPosition());
                 }
             });
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    onItemClickListener.onLongClick(getAdapterPosition(),list.get(getAdapterPosition()));
+                    onItemClickListener.onLongClick(getAdapterPosition());
                     return true;
                 }
             });

@@ -120,26 +120,25 @@ public class HomeFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @SuppressLint("ResourceType")
             @Override
-            public void onClick(int position, Note note) {
+            public void onClick(int position) {
+                pos = position;
                 toAdd = false;
                 NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
                 navController.navigate(R.id.action_navigation_home_to_formFragment);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("text_pos", note);
-                //FormFragment formFragment = new FormFragment();
-                //formFragment.setArguments(bundle);
+                bundle.putSerializable("not", adapter.getItem(position));
                 getParentFragmentManager().setFragmentResult("list_pos", bundle);
             }
 
             @Override
-            public void onLongClick(int position, Note note) {
+            public void onLongClick(int position) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                 alert.setTitle("Удалить этот список?");
-                alert.setMessage(note.getTitle());
+                alert.setMessage("");
                 alert.setPositiveButton("Да", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        App.dataBase.noteDao().delete(note);
+//                        App.dataBase.noteDao().delete(note);
                         adapter.notifyItemRemoved(position);
                         Toast.makeText(getContext(), "Успешно удалено", Toast.LENGTH_SHORT).show();
                     }

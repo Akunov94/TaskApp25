@@ -27,7 +27,7 @@ import java.util.Date;
 
 
 public class FormFragment extends Fragment {
-
+    private Note note;
     private EditText editText;
 
     @Override
@@ -40,6 +40,8 @@ public class FormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         editText = view.findViewById(R.id.editText);
+        note = (Note) getArguments().getSerializable("not");
+        if (note != null) editText.setText(note.getTitle());
         setFragmentListener();
 //        Bundle bundle = this.getArguments();
 //        if (bundle != null){
@@ -72,10 +74,15 @@ public class FormFragment extends Fragment {
 
     private void save() {
         String text = editText.getText().toString();
-        Log.e("FormFragment", "text = " + text);
+        if (note == null) {
+            note = new Note(text, System.currentTimeMillis());
+            App.dataBase.noteDao().insert(note);
+        } else {
+            note.setTitle(text);
+            App.dataBase.noteDao().update(note);
+        }
+        //Log.e("FormFragment", "text = " + text);
         Bundle bundle = new Bundle();
-        Note note = new Note(text, System.currentTimeMillis());
-        App.dataBase.noteDao().insert(note);
         bundle.putSerializable("note", note);
         getParentFragmentManager().setFragmentResult("rk_task", bundle);
         ((MainActivity) requireActivity()).closeFragment();
