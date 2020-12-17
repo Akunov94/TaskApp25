@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="horizontal"
     android:background="@drawable/girl_bg"
     tools:context=".ui.profile.ProfileFragment">
-
     <FrameLayout
         android:id="@+id/frame"
         android:layout_marginTop="150dp"
@@ -18,7 +18,7 @@
         android:layout_marginEnd="20dp"
         tools:ignore="MissingConstraints">
         <ImageView
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="-15dp"
             android:layout_width="36dp"
             android:layout_marginStart="80dp"
             android:layout_height="36dp"
@@ -38,12 +38,74 @@
             </androidx.cardview.widget.CardView>
         <ImageView
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="-15dp"
             android:layout_marginStart="70dp"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:src="@drawable/ic_baseline_sms_24">
         </ImageView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Neel Litoriya"
+            android:textColor="@color/purple_200"
+            android:padding="50dp"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            >
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="India"
+            android:textColor="@color/purple_200"
+            android:padding="80dp"
+            android:gravity="center_horizontal"
+            android:textSize="18sp"
+            >
+        </TextView>
+        <LinearLayout
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="110dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/post"
+                android:textColor="@color/purple_200"
+                android:layout_marginStart="40dp"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="654"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Post">
+
+            </TextView>
+            <TextView
+                android:textColor="@color/black"
+                android:layout_marginStart="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="265"/>
+            <TextView
+                android:textColor="@color/black"
+                android:layout_marginStart="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="165"/>
+            <TextView
+                android:textColor="@color/black"
+                android:layout_marginStart="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="457"/>
+
+        </LinearLayout>
     </FrameLayout>
 
 

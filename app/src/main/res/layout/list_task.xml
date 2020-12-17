@@ -12,6 +12,13 @@
         android:fontFamily="casual"
         android:text="Task"
         android:textColor="@android:color/holo_orange_dark" />
+    <TextView
+        android:id="@+id/textTimeCreateAt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:gravity="right|bottom"
+        android:textColor="@android:color/holo_orange_dark" />
 
 
 

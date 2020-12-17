@@ -15,16 +15,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.geektech.taskapp25.App;
 import com.geektech.taskapp25.MainActivity;
+import com.geektech.taskapp25.Note;
 import com.geektech.taskapp25.R;
 
 import java.net.URISyntaxException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class FormFragment extends Fragment {
 
     private EditText editText;
-    public static String KEY = "key";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,8 +63,8 @@ public class FormFragment extends Fragment {
                 new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                        String text = result.getString("text_pos");
-                        editText.setText(text);
+                        Note note = (Note) result.getSerializable("text_pos");
+                        editText.setText(note.getTitle());
                     }
                 });
     }
@@ -70,7 +74,9 @@ public class FormFragment extends Fragment {
         String text = editText.getText().toString();
         Log.e("FormFragment", "text = " + text);
         Bundle bundle = new Bundle();
-        bundle.putString("text", text);
+        Note note = new Note(text, System.currentTimeMillis());
+        App.dataBase.noteDao().insert(note);
+        bundle.putSerializable("note", note);
         getParentFragmentManager().setFragmentResult("rk_task", bundle);
         ((MainActivity) requireActivity()).closeFragment();
     }
