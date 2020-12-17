@@ -46,6 +46,7 @@ public class HomeFragment extends Fragment {
     private TaskAdapter adapter;
     private Boolean toAdd;
     private int pos;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +109,7 @@ public class HomeFragment extends Fragment {
                         Note note = (Note) result.getSerializable("note");
                         if (toAdd)
                             adapter.addItem(note);
-                        else adapter.updateItem(pos,note);
+                        else adapter.updateItem(pos, note);
                     }
                 });
     }
@@ -131,15 +132,15 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onLongClick(int position,Note note) {
+            public void onLongClick(int position, Note note) {
                 AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                 alert.setTitle("Удалить этот список?");
                 alert.setMessage(note.getTitle());
                 alert.setPositiveButton("Да", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
-                        adapter.notifyDataSetChanged();
+                        App.dataBase.noteDao().delete(note);
+                        adapter.notifyItemRemoved(position);
                         Toast.makeText(getContext(), "Успешно удалено", Toast.LENGTH_SHORT).show();
                     }
                 });
