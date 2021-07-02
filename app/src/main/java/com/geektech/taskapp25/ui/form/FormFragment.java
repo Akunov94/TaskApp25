@@ -40,16 +40,18 @@ public class FormFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         editText = view.findViewById(R.id.editText);
-        note = (Note) getArguments().getSerializable("not");
+        if (getArguments() != null) {
+            note = (Note) getArguments().getSerializable("not");
+        }
         if (note != null) editText.setText(note.getTitle());
         setFragmentListener();
-//        Bundle bundle = this.getArguments();
-//        if (bundle != null){
-//            String text = bundle.getString("text");
-//            if (text !=null){
-//                editText.setText(text);
-//            }
-//        }
+        Bundle bundle = this.getArguments();
+        if (bundle != null){
+            String text = bundle.getString("text");
+            if (text !=null){
+                editText.setText(text);
+            }
+        }
         view.findViewById(R.id.btnSave).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,11 +63,11 @@ public class FormFragment extends Fragment {
 
     private void setFragmentListener() {
         getParentFragmentManager().setFragmentResultListener("list_pos",
-                getViewLifecycleOwner(),
+                this,
                 new FragmentResultListener() {
                     @Override
                     public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                        Note note = (Note) result.getSerializable("text_pos");
+                        Note note = (Note) result.getSerializable("not");
                         editText.setText(note.getTitle());
                     }
                 });
@@ -73,12 +75,13 @@ public class FormFragment extends Fragment {
 
 
     private void save() {
-        String text = editText.getText().toString();
+        String title = editText.getText().toString();
+        long time= System.currentTimeMillis();
         if (note == null) {
-            note = new Note(text, System.currentTimeMillis());
+            note = new Note(title, time);
             App.dataBase.noteDao().insert(note);
         } else {
-            note.setTitle(text);
+            note.setTitle(title);
             App.dataBase.noteDao().update(note);
         }
         //Log.e("FormFragment", "text = " + text);
@@ -87,4 +90,18 @@ public class FormFragment extends Fragment {
         getParentFragmentManager().setFragmentResult("rk_task", bundle);
         ((MainActivity) requireActivity()).closeFragment();
     }
+//    String title = editText.getText().toString();
+//    long time= System.currentTimeMillis();
+//        if (note == null) {
+//        note = new Note(title, time);
+//        App.dataBase.noteDao().insert(note);
+//    } else {
+//        note.setTitle(title);
+//        App.dataBase.noteDao().update(note);
+//    }
+//    //Log.e("FormFragment", "text = " + text);
+//    Bundle bundle = new Bundle();
+//        bundle.putSerializable("note", note);
+//    getParentFragmentManager().setFragmentResult("rk_task", bundle);
+//        ((MainActivity) requireActivity()).closeFragment();
 }

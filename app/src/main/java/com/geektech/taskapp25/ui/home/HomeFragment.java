@@ -39,6 +39,7 @@ import com.geektech.taskapp25.utils.Prefs;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class HomeFragment extends Fragment {
     AppDataBase dataBase;
@@ -67,25 +68,7 @@ public class HomeFragment extends Fragment {
         view.findViewById(R.id.txtOptionMenu).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final PopupMenu popupMenu = new PopupMenu(getContext(), view);
-                popupMenu.inflate(R.menu.menu);
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_clear:
-                                new Prefs(getContext()).clearPrefs();
-                                ((MainActivity) requireActivity()).finish();
-                                Toast.makeText(getContext(), "Deleted", Toast.LENGTH_LONG).show();
-                                break;
-                            default:
-                                break;
-                        }
-
-                        return false;
-                    }
-                });
-                popupMenu.show();
+                popUpMenu(view);
             }
         });
         initList();
@@ -93,11 +76,33 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 toAdd = true;
-                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-                navController.navigate(R.id.action_navigation_home_to_formFragment);
+                openForm();
             }
         });
         setFragmentListener();
+    }
+
+    private void popUpMenu(View view) {
+        final PopupMenu popupMenu = new PopupMenu(requireContext(), view);
+        popupMenu.inflate(R.menu.menu);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.menu_clear) {
+                    new Prefs(requireContext()).clearPrefs();
+                    ((MainActivity) requireActivity()).finish();
+                    Toast.makeText(requireActivity(), "Deleted", Toast.LENGTH_LONG).show();
+                }
+
+                return false;
+            }
+        });
+        popupMenu.show();
+    }
+
+    private void openForm(){
+        NavController navController = Navigation.findNavController(requireActivity(),R.id.nav_host_fragment);
+        navController.navigate(R.id.action_navigation_home_to_formFragment);
     }
 
     private void setFragmentListener() {
@@ -138,9 +143,9 @@ public class HomeFragment extends Fragment {
                 alert.setPositiveButton("Да", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                        App.dataBase.noteDao().delete(note);
-                        adapter.notifyItemRemoved(position);
-                        Toast.makeText(getContext(), "Успешно удалено", Toast.LENGTH_SHORT).show();
+                        App.dataBase.noteDao().delete(adapter.getItem(position));
+                        adapter.removeItem(position);
+                        Toast.makeText(requireContext(), "Успешно удалено", Toast.LENGTH_SHORT).show();
                     }
                 });
                 alert.setNegativeButton("Нет", new DialogInterface.OnClickListener() {

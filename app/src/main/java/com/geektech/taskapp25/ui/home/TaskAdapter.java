@@ -61,13 +61,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     }
 
     public void addItem(Note note) {
-        list.add(note);
-        notifyItemInserted(list.size() - 1);
+        list.add(0,note);
+        notifyDataSetChanged();
+       // notifyItemInserted(list.size() - 1);
     }
 
     public void updateItem(int pos, Note note) {
         list.set(pos, note);
         notifyItemChanged(pos);
+    }
+    public void removeItem(int pos) {
+        list.remove(pos);
+        notifyItemRemoved(pos);
     }
 
     public Note getItem(int position) {
